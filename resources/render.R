@@ -15,13 +15,13 @@ option_list <- list(
     type = "character",
     default = NULL,
     help = "2024 Sheet Results (json)",
-  ),
-  optparse::make_option(
-    c("--data_in_2025"),
-    type = "character",
-    default = NULL,
-    help = "2025 Sheet Results (json)"
-  )
+  )#,
+  #optparse::make_option(
+  #  c("--data_in_2025"),
+  #  type = "character",
+  #  default = NULL,
+  #  help = "2025 Sheet Results (json)"
+  #)
   #add more optparse::make_option's here for each year of results
 )
 
@@ -30,7 +30,7 @@ option_list <- list(
 opt_parser <- optparse::OptionParser(option_list = option_list)
 opt <- optparse::parse_args(opt_parser)
 jsonResults_2024 <- opt$data_in_2024
-jsonResults_2025 <- opt$data_in_2025
+#jsonResults_2025 <- opt$data_in_2025
 #add more opt$data_in_{} assignments here for each year of results
 
 get_interpret_data <- function(jsonResults, year){
@@ -339,7 +339,8 @@ get_interpret_data <- function(jsonResults, year){
 
 poll_results <- list(
   df2024 = get_interpret_data(jsonResults_2024, "2024"),
-  df2025 = get_interpret_data(jsonResults_2025, "2025")
+  df2025 = df2024
+  #df2025 = get_interpret_data(jsonResults_2025, "2025")
   #add more calls to the function for each year of results here
 )
 
