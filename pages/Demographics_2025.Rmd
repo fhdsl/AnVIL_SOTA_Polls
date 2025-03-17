@@ -1,0 +1,71 @@
+---
+title: "Demographics"
+subtitle: "2025"
+author: ""
+date: ""
+output: html_document
+---
+
+```{r, message = FALSE, echo = FALSE,results='hide', warning=FALSE}
+library(here)
+library(kableExtra)
+
+# Inherit plots
+knitr::knit_child(here("anvilPoll2025MainAnalysis.Rmd"))
+# Import functions to stylize plots
+source(here("resources/scripts/shared_functions.R"))
+```
+
+<br>
+
+# Highest Degree
+
+```{r, message=FALSE, echo=FALSE}
+degreePlot
+```
+
+## Takeaway
+
+Most of the respondents have a PhD or are currently working on a PhD, though a range of career stages are represented.
+
+<br>
+
+# Kind of Work
+
+```{r, message = FALSE, echo = FALSE}
+kowPlot
+```
+
+## Takeaway
+
+Only a few responses report project management, leadership, or administration as their only kind of work. This increases our confidence that this won't confound later questions asking about usage of datasets or tools.
+
+## Potential Follow-up
+
+  - Use this together with other info to try to cluster respondents/users into personas.
+
+<br>
+
+# Institutional Affiliation
+
+```{r, message=FALSE, echo = FALSE}
+instTypePlot
+```
+
+## Takeaway
+
+Most of the individuals using the AnVIL report being affiliated with a research intensive institution.
+
+## Potential Follow-up
+
+  - Does industry not being represented in this sample of returning users generalize to the larger AnVIL user base? If so, why?
+
+<br>
+
+# Consortia Affiliations
+
+Of `r nrow(resultsTidy)` responses, `r sum(!is.na(resultsTidy$ConsortiaAffiliations))` provide an affiliation, with `r nrow(consortiaTable)` unique affiliations represented across those responses (respondents could select more than one consortium). The following table shows the most represented consortia.
+
+```{r, message = FALSE, echo = FALSE}
+kableExtra::kable(consortia_df, table.attr = "style='width:20%;'")
+```

@@ -1,0 +1,79 @@
+---
+title: "Preferences"
+subtitle: "2024"
+author: ""
+date: ""
+output: html_document
+---
+
+```{r, message = FALSE, echo = FALSE,results='hide', warning=FALSE}
+library(tidyverse)
+library(here)
+library(grid) #for Grobs
+library(scales) #pretty breaks
+
+# Inherit `resultsTidy`
+knitr::knit_child(here("anvilPoll2024MainAnalysis.Rmd"))
+# Import functions to stylize plots
+source(here("resources/scripts/shared_functions.R"))
+```
+
+# Feature Importance Ranking
+
+```{r message=FALSE, echo=FALSE}
+gdumbbell
+```
+
+## Takeaway
+
+All respondents rate having specific tools or datasets supported/available as a very important feature for using AnVIL. Compared to returning users, potential users rate having a free-version with limited compute or storage as the most important feature for their potential use of the AnVIL.
+
+## Potential Follow-up
+
+  - Ask what specific tools people want available/supported
+
+<br/>
+
+# Training Workshop Modality Ranking
+
+```{r, message=FALSE, echo=FALSE}
+tdumbbell
+```
+
+## Takeaway
+
+Both returning and potential users vastly prefer virtual training workshops.
+
+<br/>
+
+# Where analyses are currently run
+
+```{r message=FALSE, echo=FALSE}
+whereRunPlot
+```
+
+## Takeaway
+
+Institutional HPC and locally/personal computers are the most common responses. Google Cloud Platform (GCP) is reported as used more than other cloud providers within this sample. We also see that potential users report using Galaxy (a free option) more than returning users do.
+
+<br/>
+
+# DMS compliance/data repositories
+
+```{r message=FALSE, echo=FALSE}
+dmsPlot
+```
+
+<br/>
+
+# Source for cloud computing funds
+
+```{r message=FALSE, echo=FALSE}
+fundingSourcePlot
+```
+
+## Takeaway
+
+NIH funds (NHGRI or otherwise) as well as institutional funds are the most commonly reported funding sources.
+
+<br/>

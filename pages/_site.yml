@@ -1,0 +1,62 @@
+name: State of the AnVIL
+output_dir: '../docs'
+navbar:
+  title: "AnVIL Community Poll"
+  left:
+  - text: ""
+    href: index.html
+    icon: fa-home
+  - text: "2024 Poll"
+    menu:
+    #- text: "Poll Design & Takeaways"
+    #  href: design_takeaways_2024.html
+    - text: "Identify User Type"
+      href: IdentifyTypeOfUsers_2024.html
+    - text: "Demographics"
+      href: Demographics_2024.html
+    - text: "Experience"
+      href: Experience_2024.html
+    - text: "Awareness"
+      href: Awareness_2024.html
+    - text: "Preferences"
+      href: Preferences_2024.html
+    - text: "Returning Users"
+      href: "ReturningUserQs_2024.html"
+    #- text: "Full Report"
+    #  href: 2024_full.html #use cow::borrow_chapter to grab sections and make one huge report
+  - text: "2025 Poll"
+    menu:
+    #- text: "Poll Design & Takeaways"
+    #  href: design_takeaways_2025.html
+    - text: "Identify User Type"
+      href: IdentifyTypeOfUsers_2025.html
+    - text: "Demographics"
+      href: Demographics_2025.html
+    - text: "Experience"
+      href: Experience_2025.html
+    - text: "Awareness"
+      href: Awareness_2025.html
+    - text: "Preferences"
+      href: Preferences_2025.html
+    - text: "Returning Users"
+      href: "ReturningUserQs_2025.html"
+    #- text: "Full Report"
+    #  href: 2025_full.html #use cow::borrow_chapter to grab sections and make one huge report
+  # Add tabs/dropdowns here each new year
+  - text: "Contact"
+    href: contact.html
+    icon: fa-envelope
+  - text: AnVIL Home
+    href: https://www.anvilproject.org/
+
+
+output:
+  html_document:
+    theme: cosmo
+    lib_dir: site_libs
+    self_contained: no
+    highlight: textmate
+    css: styles.css
+    includes:
+       in_header: resources/header.html
+       after_body: resources/footer.html

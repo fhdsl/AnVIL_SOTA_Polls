@@ -1,0 +1,30 @@
+InstitutionalAffiliation	CorrespondingSurveyEntries	InstitutionalType
+Arizona State University	Arizona State University	R1 University
+Baylor College of Medicine	Baylor College of Medicine	Medical Center or School
+Boston Children's Hospital	Boston Children's Hospital	Medical Center or School
+Broad Institute	"Broad, broad institute, Broad Institute"	Research Center
+Carnegie Institution of Washington	Carnegie Institution of Washington	Research Center
+City University of New York	"City University of New York, CUNY School of Public Health; Roswell Park Comprehensive Cancer Center"	R2 University
+Clovis Community College	Clovis Community College	Community College
+Columbia University Irving Medical Center	Columbia University Irving Medical Center	R1 University
+Harvard University	"harvard, Harvard Public Health"	R1 University
+Johns Hopkins	"Johns hopkins, Johns Hopkins, Johns Hopkins University"	R1 University
+Lieber Institute for Brain Development	Lieber Institute for Brain Development	Research Center
+Moffitt Cancer Center	Moffitt Cancer Center	Medical Center or School
+NHGRI	NHGRI	NIH
+Oregon Health & Science University	"OHSU, OHSU (Knight Center)"	R1 University
+Pacific Biosciences	Pacific Biosciences	Industry
+Penn State University	Penn State University	R1 University
+Stanford University	Stanford University	R1 University
+Ohio State University	The Ohio State University	R1 University
+University of California Santa Cruz	"UCSC, univ. ca. santa cruz, university of California santa cruz "	R1 University
+UMass Chan Medical School	"Umass Chan Medical School, UMASS Chan Medical School"	Medical Center or School
+University of Minnesota	University of Minnesota	R1 University
+University of Queensland	University of Queensland	International Location
+University of Texas at El Paso	University of Texas at El Paso	R1 University
+University of Virginia	University of Virginia	R1 University
+University of Washington	University of Washington	R1 University
+Vanderbilt University Medical Center	Vanderbilt University Medical Center	R1 University
+Washington University in St. Louis	"Washington University in St. Louis, Washington University in St Louis"	R1 University
+Yikon Genomics	yikongene	Industry
+Unknown	v	Unknown

@@ -1,0 +1,16 @@
+Dataset	whichControlledAccess	AnVIL_Availability
+All of Us*	All of Us	non-AnVIL hosted
+UK Biobank*	UK Biobank	non-AnVIL hosted
+Centers for Common Disease Genomics (CCDG)	CCDG	AnVIL hosted
+The Centers for Mendelian Genomics (CMG)	CMG	AnVIL hosted
+Clinical Sequencing Evidence-Generating Research (CSER)	CSER	AnVIL hosted
+Electronic Medical Records and Genomics (eMERGE)	eMERGE	AnVIL hosted
+Gabriella Miller Kids First (GMKF)	GMKF	non-AnVIL hosted
+Genomics Research to Elucidate the Genetics of Rare Diseases	GREGoR	AnVIL hosted
+The Genotype-Tissue Expression Project (GTEx	GTEx	AnVIL hosted
+The Human Pangenome Reference Consortium (HPRC)	HPRC	AnVIL hosted
+Population Architecture Using Genomics and Epidemiology (PAGE)	PAGE	AnVIL hosted
+Undiagnosed Disease Network (UDN)	UDN	non-AnVIL hosted
+Being able to pull other dbGap data as needed., Cancer omics datasets	Other	NA
+GnomAD and ClinVar	None	NA
+TCGA	TCGA	non-AnVIL hosted

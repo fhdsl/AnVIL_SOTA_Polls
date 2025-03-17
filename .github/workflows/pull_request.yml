@@ -1,5 +1,5 @@
 # Candace Savonen Dec 2021
-# Updated Jan 2025
+# Updated Aug 2024
 name: Pull Request
 
 on:
@@ -47,7 +47,6 @@ jobs:
       toggle_url_check: "${{ env.URL_CHECKER }}"
       toggle_render_preview: "${{ env.RENDER_PREVIEW }}"
       rendering_docker_image: "${{ env.RENDERING_DOCKER_IMAGE }}"
-      toggle_readability: "${{ env.READABILITY_REPORT }}"
 
 ########################## Make the error reports ##############################
   spell-check:
@@ -58,8 +57,7 @@ jobs:
     with:
       check_type: spelling
       error_min: 3
-    secrets:
-      gh_pat: ${{ secrets.GH_PAT }}
+      gh_pat: secrets.GH_PAT
 
   url-check:
     name: Check URLs
@@ -69,30 +67,8 @@ jobs:
     with:
       check_type: urls
       error_min: 0
-    secrets:
-      gh_pat: ${{ secrets.GH_PAT }}
-      
-############################# Readability Report ###################################
+      gh_pat: secrets.GH_PAT
 
-  readability-report:
-    name: Readability report
-    needs: yaml-check
-    runs-on: ubuntu-latest
-    if: ${{needs.yaml-check.outputs.toggle_readability == 'yes'}}
-
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Readability report
-        uses: Rebilly/lexi@v2
-        with:
-          github-token: ${{ secrets.GH_PAT }}
-          glob: '**/*.md'
-          
-###################### Render preview of website ##################
   render-preview:
     name: Render preview
     needs: yaml-check
@@ -122,12 +98,51 @@ jobs:
 
       # We want a fresh run of the renders each time - so first delete old html files
       - name: Delete old *.html
-        run: Rscript -e "rmarkdown::clean_site(preview = FALSE)"
+        run: Rscript -e "rmarkdown::clean_site(input = 'pages', preview = FALSE)"
 
-       # Now we want to render all the html files from the Rmd files
-      - name: Run render html
+       # Now we want to get the data from gsheet, make it available to all of the Rmds and render all the html files from the Rmd files
+      - name: get data one
+        id: 'get_sheet_2024'
+        uses: jroehl/gsheet.action@v2.1.1
+        with:
+          spreadsheetId: '1wDMNC6BD2AaIwh_GOkPTpl1tvAyLwVBQgAvOD2rYrX0'
+          commands: | # list of commands, specified as a valid JSON string
+            [
+              { "command": "getWorksheet", "args": { "worksheetTitle": "Form Responses 1" }},
+              { "command": "getData", "args": { "range": "'Form Responses 1'!A:BI" } }
+            ]
+        env:
+          GSHEET_CLIENT_EMAIL: ${{ secrets.GSHEET_CLIENT_EMAIL }}
+          GSHEET_PRIVATE_KEY: ${{ secrets.GSHEET_PRIVATE_KEY }}
+
+      - name: get data two
+        id: 'get_sheet_2025'
+        uses: jroehl/gsheet.action@v2.1.1
+        with:
+          spreadsheetId: '1lGs2p6qyJDAWuM4L2rX7PZi5CQ2GkeL2iXnjnrzhBnQ'
+          commands: | # list of commands, specified as a valid JSON string
+            [
+              { "command": "getWorksheet", "args": { "worksheetTitle": "Form Responses 1" }},
+              { "command": "getData", "args": { "range": "'Form Responses 1'!A:BW" } }
+            ]
+        env:
+          GSHEET_CLIENT_EMAIL: ${{ secrets.GSHEET_CLIENT_EMAIL }}
+          GSHEET_PRIVATE_KEY: ${{ secrets.GSHEET_PRIVATE_KEY }}
+
+        # ADD new get data __ here following pattern above for each year
+        # update the name, id, spreadsheetId, and range.
+        # add result below in Run render script action (two places)
+
+        # Run the analysis and Render
+      - name: Run render script
         id: site
-        run: Rscript -e "rmarkdown::render_site()"
+        env:
+          # the output of the action above!
+          RESULTS2024: ${{ steps.get_sheet_2024.outputs.results }}
+          RESULTS2025: ${{ steps.get_sheet_2025.outputs.results }}
+          # ADD a new RESULTS# here
+        run: | #add the "$RESULTS#" below
+          Rscript --vanilla "resources/render.R" --data_in_2024 "$RESULTS2024" --data_in_2025 "$RESULTS2025"
 
       # This checks on the steps before it and makes sure that they completed.
       # If the renders didn't complete we don't want to commit the file changes
