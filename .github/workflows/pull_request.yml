@@ -144,7 +144,7 @@ jobs:
           RESULTS2025: ${{ steps.get_sheet_2025.outputs.results }}
           # ADD a new RESULTS# here
         run: | #add the "$RESULTS#" below
-          Rscript --vanilla "resources/render.R" --data_in_2024 "$RESULTS2024" --data_in_2025 "$RESULTS2025"
+          Rscript --vanilla "resources/render.R" --data_in_2024 "$RESULTS2024"
 
       # This checks on the steps before it and makes sure that they completed.
       # If the renders didn't complete we don't want to commit the file changes
