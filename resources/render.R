@@ -292,7 +292,7 @@ get_interpret_data <- function(jsonResults, year){
                                     delim="\t",
                                     col_select = c("InstitutionalAffiliation", "InstitutionalType"))
 
-  df <- full_join(df, institutionCodeBook, by = "InstitutionalAffiliation")
+  df <- left_join(df, institutionCodeBook, by = "InstitutionalAffiliation")
 
   ## Adds column FurtherSimplifiedInstitutionalType
 
