@@ -290,7 +290,7 @@ get_interpret_data <- function(jsonResults, year){
   ## Adds column InstitutionalType from the institution specific codebook
   institutionCodeBook <- read_delim(here(paste0("data/", year, "/institution_codebook.txt")),
                                     delim="\t",
-                                    col_select = c("InstitutionalAffiliation, InstitutionalType"))
+                                    col_select = c("InstitutionalAffiliation", "InstitutionalType"))
 
   df <- full_join(df, institutionCodeBook, by = "InstitutionalAffiliation")
 
