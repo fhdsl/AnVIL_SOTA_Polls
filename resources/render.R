@@ -55,8 +55,10 @@ get_combine_dfs <- function(jsonResultsVec){
   for (i in 1:length(jsonResultsVec)){
     df <- fromJSON(jsonResultsVec[i])
     df <- df$results$results$formatted[[2]]
-    colnames(df) <- df[1,] #colnames taken from first row of data
-    df <- df[-1, ] #remove the first row of data (original column names)
+    if (i == 1){
+      colnames(df) <- df[1,] #colnames taken from first row of data
+      df <- df[-1, ] #remove the first row of data (original column names)
+    }
     df <- tibble::as_tibble_df
     if (i > 1){
       full_df <- rbind(full_df, df)
