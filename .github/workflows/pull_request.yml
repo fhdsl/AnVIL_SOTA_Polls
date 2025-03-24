@@ -121,7 +121,7 @@ jobs:
         id: 'get_sheet_2024_b2'
         uses: jroehl/gsheet.action@v2.1.1
         with:
-          spreadsheetId: '140zwFy280ZV-C4P22tEkjH53_wH4hE418h3QxSqnezE'
+          spreadsheetId: '140zwFy280ZV-C4P22tEKjH53_wH4hE418h3QxSqnezE'
           commands: |
             [
               { "command": "getWorksheet", "args": { "worksheetTitle": "Test2024" }},
@@ -135,7 +135,7 @@ jobs:
         id: 'get_sheet_2024_b3'
         uses: jroehl/gsheet.action@v2.1.1
         with:
-          spreadsheetId: '140zwFy280ZV-C4P22tEkjH53_wH4hE418h3QxSqnezE'
+          spreadsheetId: '140zwFy280ZV-C4P22tEKjH53_wH4hE418h3QxSqnezE'
           commands: |
             [
               { "command": "getWorksheet", "args": { "worksheetTitle": "Test2024" }},
