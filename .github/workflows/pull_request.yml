@@ -124,10 +124,10 @@ jobs:
           GSHEET_CLIENT_EMAIL: ${{ secrets.GSHEET_CLIENT_EMAIL }}
           GSHEET_PRIVATE_KEY: ${{ secrets.GSHEET_PRIVATE_KEY }}
 
-      #- name: dump results 2024
-      #  env:
-      #    RESULTS2024: ${{ steps.get_sheet_2024.outputs.results }}
-      #  run: echo "$RESULTS2024"
+      - name: dump results 2024
+        env:
+          RESULTS2024: ${{ steps.get_sheet_2024.outputs.results }}
+        run: echo "$RESULTS2024"
 
       - name: get data two
         id: 'get_sheet_2025'
