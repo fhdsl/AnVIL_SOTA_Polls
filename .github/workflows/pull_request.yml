@@ -111,7 +111,7 @@ jobs:
           commands: |
             [
               { "command": "getWorksheet", "args": { "worksheetTitle": "Test2024" }},
-              { "command": "getData", "args": { "range": "'Test2024'!A:BI" }}
+              { "command": "getData", "args": { "range": "'Test2024'!A1:BI53" }}
             ]
 
           #spreadsheetId: '1wDMNC6BD2AaIwh_GOkPTpl1tvAyLwVBQgAvOD2rYrX0'
@@ -143,7 +143,7 @@ jobs:
           commands: |
             [
               { "command": "getWorksheet", "args": { "worksheetTitle": "Test2025" }},
-              { "command": "getData", "args": { "range": "'Test2025'!A:BW" } }
+              { "command": "getData", "args": { "range": "'Test2025'!A1:BW19" } }
             ]
         env:
           GSHEET_CLIENT_EMAIL: ${{ secrets.GSHEET_CLIENT_EMAIL }}
