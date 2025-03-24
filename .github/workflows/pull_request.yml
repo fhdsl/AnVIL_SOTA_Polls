@@ -111,14 +111,14 @@ jobs:
           commands: |
             [
               { "command": "getWorksheet", "args": { "worksheetTitle": "Test2024" }},
-              { "command": "getData", "args": { "range": "'Test2024'!A1:BI53" }}
+              { "command": "getData", "args": { "range": "'Test2024'!A1:BI26" }}
             ]
 
           #spreadsheetId: '1wDMNC6BD2AaIwh_GOkPTpl1tvAyLwVBQgAvOD2rYrX0'
           #commands: | # list of commands, specified as a valid JSON string
           #  [
           #    { "command": "getWorksheet", "args": { "worksheetTitle": "Form Responses 1" }},
-          #    { "command": "getData", "args": { "range": "'Form Responses 1'!A:BI" } }
+          #    { "command": "getData", "args": { "range": "'Form Responses 1'!A1:BI53" } }
           #  ]
         env:
           GSHEET_CLIENT_EMAIL: ${{ secrets.GSHEET_CLIENT_EMAIL }}
