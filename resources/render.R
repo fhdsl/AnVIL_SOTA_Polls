@@ -42,9 +42,13 @@ option_list <- list(
 opt_parser <- optparse::OptionParser(option_list = option_list)
 opt <- optparse::parse_args(opt_parser)
 jsonResults_2024b1 <- opt$data_in_2024_b1
+print(is.null(jsonResults_2024b1))
 jsonResults_2024b2 <- opt$data_in_2024_b2
+print(is.null(jsonResults_2024b2))
 jsonResults_2024b3 <- opt$data_in_2024_b3
+print(is.null(jsonResults_2024b3))
 jsonResults_2025 <- opt$data_in_2025
+print(is.null(jsonResults_2025))
 #add more opt$data_in_{}_{} assignments here for each year (and batch) of results
 
 get_combine_dfs <- function(jsonResultsVec){
