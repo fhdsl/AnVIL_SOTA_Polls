@@ -57,8 +57,8 @@ jobs:
         run: Rscript -e "rmarkdown::clean_site(input = 'pages', preview = FALSE)"
 
        # Now we want to get the data from gsheet, make it available to all of the Rmds and render all the html files from the Rmd files
-      - name: get data one
-        id: 'get_sheet_2024'
+      - name: get data one batch one
+        id: 'get_sheet_2024_b1'
         uses: jroehl/gsheet.action@v2.1.1
         with:
           #spreadsheetId: '1wDMNC6BD2AaIwh_GOkPTpl1tvAyLwVBQgAvOD2rYrX0'
@@ -66,21 +66,56 @@ jobs:
           commands: |
             [
               { "command": "getWorksheet", "args": { "worksheetTitle": "Test2024" }},
-              { "command": "getData", "args": { "range": "'Test2024'!A1:BI51" }}
+              { "command": "getData", "args": { "range": "'Test2024'!A1:BI21" }}
             ]
           #commands: | # list of commands, specified as a valid JSON string
           #  [
           #    { "command": "getWorksheet", "args": { "worksheetTitle": "Form Responses 1" }},
-          #    { "command": "getData", "args": { "range": "'Form Responses 1'!A1:BI53" } }
+          #    { "command": "getData", "args": { "range": "'Form Responses 1'!A1:BI21" } }
           #  ]
         env:
           GSHEET_CLIENT_EMAIL: ${{ secrets.GSHEET_CLIENT_EMAIL }}
           GSHEET_PRIVATE_KEY: ${{ secrets.GSHEET_PRIVATE_KEY }}
 
-      - name: dump results 2024
+      - name: get data one batch two
+        id: 'get_sheet_2024_b2'
+        uses: jroehl/gsheet.action@v2.1.1
+        with:
+          #spreadsheetId: '1wDMNC6BD2AaIwh_GOkPTpl1tvAyLwVBQgAvOD2rYrX0'
+          spreadsheetId: '140zwFy280ZV-C4P22tEKjH53_wH4hE418h3QxSqnezE'
+          commands: |
+            [
+              { "command": "getWorksheet", "args": { "worksheetTitle": "Test2024" }},
+              { "command": "getData", "args": { "range": "'Test2024'!A1:BI1,A22:BI42" }}
+            ]
+          #commands: | # list of commands, specified as a valid JSON string
+          #  [
+          #    { "command": "getWorksheet", "args": { "worksheetTitle": "Form Responses 1" }},
+          #    { "command": "getData", "args": { "range": "'Form Responses 1'A1:BI1,A22:BI42" } }
+          #  ]
         env:
-          RESULTS2024: ${{ steps.get_sheet_2024.outputs.results }}
-        run: echo "$RESULTS2024"
+          GSHEET_CLIENT_EMAIL: ${{ secrets.GSHEET_CLIENT_EMAIL }}
+          GSHEET_PRIVATE_KEY: ${{ secrets.GSHEET_PRIVATE_KEY }}
+
+      - name: get data one batch three
+        id: 'get_sheet_2024_b3'
+        uses: jroehl/gsheet.action@v2.1.1
+        with:
+          #spreadsheetId: '1wDMNC6BD2AaIwh_GOkPTpl1tvAyLwVBQgAvOD2rYrX0'
+          spreadsheetId: '140zwFy280ZV-C4P22tEKjH53_wH4hE418h3QxSqnezE'
+          commands: |
+            [
+              { "command": "getWorksheet", "args": { "worksheetTitle": "Test2024" }},
+              { "command": "getData", "args": { "range": "'Test2024'!A1:BI1,A43:BI53" }}
+            ]
+          #commands: | # list of commands, specified as a valid JSON string
+          #  [
+          #    { "command": "getWorksheet", "args": { "worksheetTitle": "Form Responses 1" }},
+          #    { "command": "getData", "args": { "range": "'Form Responses 1'A1:BI1,A43:BI53" } }
+          #  ]
+        env:
+          GSHEET_CLIENT_EMAIL: ${{ secrets.GSHEET_CLIENT_EMAIL }}
+          GSHEET_PRIVATE_KEY: ${{ secrets.GSHEET_PRIVATE_KEY }}
 
       - name: get data two
         id: 'get_sheet_2025'
@@ -102,43 +137,43 @@ jobs:
           GSHEET_CLIENT_EMAIL: ${{ secrets.GSHEET_CLIENT_EMAIL }}
           GSHEET_PRIVATE_KEY: ${{ secrets.GSHEET_PRIVATE_KEY }}
 
-      - name: dump results 2025
-        env:
-          RESULTS2025: ${{ steps.get_sheet_2025.outputs.results }}
-        run: echo "$RESULTS2025"
-
         # ADD new get data __ here following pattern above for each year
         # update the name, id, spreadsheetId, and range.
         # add result below in Run render script action (two places)
 
         # Run the analysis and Render
-      #- name: Run render script
-      #  id: site
-      #  env:
+      - name: Run render script
+        id: site
+        env:
           # the output of the action above!
-    #      RESULTS2024: ${{ steps.get_sheet_2024.outputs.results }}
-    #      RESULTS2025: ${{ steps.get_sheet_2025.outputs.results }}
+          RESULTS2024b1: ${{ steps.get_sheet_2024_b1.outputs.results }}
+          RESULTS2024b2: ${{ steps.get_sheet_2024_b2.outputs.results }}
+          RESULTS2024b3: ${{ steps.get_sheet_2024_b3.outputs.results }}
+          RESULTS2025: ${{ steps.get_sheet_2025.outputs.results }}
           # ADD a new RESULTS# here
-    #    run: | #add the --data_in_# "$RESULTS#" below
-    #      Rscript --vanilla "resources/render.R" --data_in_2024 "$RESULTS2024" --data_in_2025 "$RESULTS2025"
+        run: | #add the --data_in_# "$RESULTS#" below
+          Rscript --vanilla "resources/render.R" --data_in_2024_b1 "$RESULTS2024b1"
+                                                 --data_in_2024_b2 "$RESULTS2024b2"
+                                                 --data_in_2024_b3 "$RESULTS2024b3"
+                                                 --data_in_2025 "$RESULTS2025"
 
       # This checks on the steps before it and makes sure that they completed.
       # If the renders didn't complete we don't want to commit the file changes
-    #  - name: Check on render steps
-    #    if: steps.site.outcome != 'success'
-    #    run: |
-    #      echo site status ${{steps.site.outcome}}
-    #      exit 1
+      - name: Check on render steps
+        if: steps.site.outcome != 'success'
+        run: |
+          echo site status ${{steps.site.outcome}}
+          exit 1
 
 # Commit the rendered site files - html files and site_libs files
 # The git reset step will remove any other files created in this workflow, such as API keys
-    #  - name: Commit rendered site files
-    #    run: |
-    #      git config --global --add safe.directory $GITHUB_WORKSPACE
-    #      git config --global user.name 'github-actions[bot]'
-    #      git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-    #      git add --force docs/*
-    #      git commit -m 'Render site' || echo "No changes to commit"
-    #      git reset --hard HEAD
-    #      git pull --rebase --allow-unrelated-histories --strategy-option=ours
-    #      git push origin main || echo "No changes to push"
+      - name: Commit rendered site files
+        run: |
+          git config --global --add safe.directory $GITHUB_WORKSPACE
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add --force docs/*
+          git commit -m 'Render site' || echo "No changes to commit"
+          git reset --hard HEAD
+          git pull --rebase --allow-unrelated-histories --strategy-option=ours
+          git push origin main || echo "No changes to push"

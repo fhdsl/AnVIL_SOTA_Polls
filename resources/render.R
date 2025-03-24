@@ -11,17 +11,29 @@ library(magrittr)
 # Look for the data_in argument
 option_list <- list(
   optparse::make_option(
-    c("--data_in_2024"),
+    c("--data_in_2024_b1"),
     type = "character",
     default = NULL,
-    help = "2024 Sheet Results (json)",
-  )#,
-  #optparse::make_option(
-  #  c("--data_in_2025"),
-  #  type = "character",
-  #  default = NULL,
-  #  help = "2025 Sheet Results (json)"
-  #)
+    help = "2024 Sheet Results (json, batch 1)",
+  ),
+  optparse::make_option(
+    c("--data_in_2024_b2"),
+    type = "character",
+    default = NULL,
+    help = "2024 Sheet Results (json, batch 2)"
+  ),
+  optparse::make_option(
+    c("--data_in_2024_b3"),
+    type = "character",
+    default = NULL,
+    help = "2024 Sheet Results (json, batch 3)"
+  ),
+  optparse::make_option(
+    c("--data_in_2025"),
+    type = "character",
+    default = NULL,
+    help = "2025 Sheet Results (json)"
+  )
   #add more optparse::make_option's here for each year of results
 )
 
@@ -29,25 +41,34 @@ option_list <- list(
 # Read the results provided as command line argument
 opt_parser <- optparse::OptionParser(option_list = option_list)
 opt <- optparse::parse_args(opt_parser)
-jsonResults_2024 <- opt$data_in_2024
-#jsonResults_2025 <- opt$data_in_2025
+jsonResults_2024b1 <- opt$data_in_2024_b1
+jsonResults_2024b2 <- opt$data_in_2024_b2
+jsonResults_2024b3 <- opt$data_in_2024_b3
+jsonResults_2025 <- opt$data_in_2025
 #add more opt$data_in_{} assignments here for each year of results
 
-get_interpret_data <- function(jsonResults, year){
+get_combine_dfs <- function(jsonResultsVec){
+  if (length(jsonResultsVec) > 1){
+    full_df = data.frame()
+  }
 
-  # --------- Interpret the JSON data ---------
+  for (i in 1:length(jsonResultsVec)){
+    df <- fromJSON(jsonResultsVec[i])
+    df <- df$results$results$formatted[[2]]
+    colnames(df) <- df[1,] #colnames taken from first row of data
+    df <- df[-1, ] #remove the first row of data (original column names)
+    df <- tibble::as_tibble_df
+    if (i > 1){
+      full_df <- rbind(full_df, df)
+    }
+  }
 
-  # Pull the data itself from the API results
-  df <- fromJSON(jsonResults)
-  df <- df$results$result$formatted[[2]]
+  if (length(jsonResultsVec) >1){
+    return(full_df)
+  } else { return(df)}
+}
 
-  # Repair if you have column names on your spreadsheet
-  colnames(df) <- df[1, ] # colnames taken from first row of data
-  df <- df[-1, ] # remove the first row of data (original column names)
-  df <- tibble::as_tibble(df)
-
-  df[df==""]<-NA #make no responses NAs
-
+wrangle_data <- function(df, year){
   print(paste0("Raw results dimension ", year, ": ", dim(df)))
 
   # --------- Any analysis/tidying you want to do ---------
@@ -338,9 +359,8 @@ get_interpret_data <- function(jsonResults, year){
 }
 
 poll_results <- list(
-  df2024 = get_interpret_data(jsonResults_2024, "2024"),
-  df2025 = df2024
-  #df2025 = get_interpret_data(jsonResults_2025, "2025")
+  df2024 = wrangle_data(get_combine_dfs(c(jsonResults_2024b1, jsonResults_2024b2, jsonResults_2024b3), "2024"),
+  df2025 = wrangle_data(get_combine_dfs(c(jsonResults_2025), "2025")
   #add more calls to the function for each year of results here
 )
 
