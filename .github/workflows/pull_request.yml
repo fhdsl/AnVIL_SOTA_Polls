@@ -107,29 +107,52 @@ jobs:
         id: 'get_sheet_2024'
         uses: jroehl/gsheet.action@v2.1.1
         with:
-          spreadsheetId: '1wDMNC6BD2AaIwh_GOkPTpl1tvAyLwVBQgAvOD2rYrX0'
-          commands: | # list of commands, specified as a valid JSON string
+          spreadsheetId: '140zwFy280ZV-C4P22tEKjH53_wH4hE418h3QxSqnezE'
+          commands: |
             [
-              { "command": "getWorksheet", "args": { "worksheetTitle": "Form Responses 1" }},
-              { "command": "getData", "args": { "range": "'Form Responses 1'!A:BI" } }
+              { "command": "getWorksheet", "args": { "worksheetTitle": "Test2024" }},
+              { "command": "getData", "args": { "range": "`Test2024`!A:BI" }}
             ]
+
+          #spreadsheetId: '1wDMNC6BD2AaIwh_GOkPTpl1tvAyLwVBQgAvOD2rYrX0'
+          #commands: | # list of commands, specified as a valid JSON string
+          #  [
+          #    { "command": "getWorksheet", "args": { "worksheetTitle": "Form Responses 1" }},
+          #    { "command": "getData", "args": { "range": "'Form Responses 1'!A:BI" } }
+          #  ]
         env:
           GSHEET_CLIENT_EMAIL: ${{ secrets.GSHEET_CLIENT_EMAIL }}
           GSHEET_PRIVATE_KEY: ${{ secrets.GSHEET_PRIVATE_KEY }}
+
+      - name: dump results 2024
+        env:
+          RESULTS2024: ${{ steps.get_sheet_2024.outputs.results }}
+        run: echo "$RESULTS2024" | jq
 
       - name: get data two
         id: 'get_sheet_2025'
         uses: jroehl/gsheet.action@v2.1.1
         with:
-          spreadsheetId: '1lGs2p6qyJDAWuM4L2rX7PZi5CQ2GkeL2iXnjnrzhBnQ'
-          commands: | # list of commands, specified as a valid JSON string
+          #spreadsheetId: '1lGs2p6qyJDAWuM4L2rX7PZi5CQ2GkeL2iXnjnrzhBnQ'
+          spreadsheetId: '140zwFy280ZV-C4P22tEKjH53_wH4hE418h3QxSqnezE'
+          #commands: | # list of commands, specified as a valid JSON string
+          #  [
+          #    { "command": "getWorksheet", "args": { "worksheetTitle": "Form Responses 1" }},
+          #    { "command": "getData", "args": { "range": "'Form Responses 1'!A:BW" } }
+          #  ]
+          commands: |
             [
-              { "command": "getWorksheet", "args": { "worksheetTitle": "Form Responses 1" }},
-              { "command": "getData", "args": { "range": "'Form Responses 1'!A:BW" } }
+              { "command": "getWorksheet", "args": { "worksheetTitle": "Test2025" }},
+              { "command": "getData", "args": { "range": "'Test2025'!A:BW" } }
             ]
         env:
           GSHEET_CLIENT_EMAIL: ${{ secrets.GSHEET_CLIENT_EMAIL }}
           GSHEET_PRIVATE_KEY: ${{ secrets.GSHEET_PRIVATE_KEY }}
+
+      - name: dump results 2025
+        env:
+          RESULTS2025: ${{ steps.get_sheet_2025.outputs.results }}
+        run: echo "$RESULTS2025" | jq
 
         # ADD new get data __ here following pattern above for each year
         # update the name, id, spreadsheetId, and range.
