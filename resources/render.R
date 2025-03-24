@@ -61,9 +61,9 @@ get_combine_dfs <- function(jsonResultsVec){
         colnames(df) <- df[1,] #colnames taken from first row of data
         df <- df[-1, ] #remove the first row of data (original column names)
       } else {
-        #colnames(df) <- colnames(full_df) #colnames need to be specified?
-        full_df <- rbind(full_df, df)
+        colnames(df) <- colnames(full_df) #colnames need to be specified?
       }
+      full_df <- rbind(full_df, df)
     }
     print(paste0("combined dimension ", dim(full_df)))
     return(full_df)
