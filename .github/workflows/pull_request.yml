@@ -111,7 +111,7 @@ jobs:
           commands: |
             [
               { "command": "getWorksheet", "args": { "worksheetTitle": "Test2024" }},
-              { "command": "getData", "args": { "range": "'Test2024'!A1:BI26" }}
+              { "command": "getData", "args": { "range": "'Test2024'!A1:BI41" }}
             ]
 
           #spreadsheetId: '1wDMNC6BD2AaIwh_GOkPTpl1tvAyLwVBQgAvOD2rYrX0'
