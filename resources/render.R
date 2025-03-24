@@ -361,8 +361,8 @@ wrangle_data <- function(df, year){
 }
 
 poll_results <- list(
-  df2024 = wrangle_data(get_combine_dfs(c(jsonResults_2024b1, jsonResults_2024b2, jsonResults_2024b3), "2024"),
-  df2025 = wrangle_data(get_combine_dfs(c(jsonResults_2025), "2025")
+  df2024 = wrangle_data(get_combine_dfs(c(jsonResults_2024b1, jsonResults_2024b2, jsonResults_2024b3)), "2024"),
+  df2025 = wrangle_data(get_combine_dfs(c(jsonResults_2025)), "2025")
   #add more calls to the function for each year of results here
 )
 
