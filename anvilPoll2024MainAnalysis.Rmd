@@ -1043,7 +1043,7 @@ whereRunPlot
 ## Preferences: DMS compliance/data repositories
 
 ```{r}
-nonOtherResponses <- read_delim(here("data/codebook.txt"), #read in the codebook
+nonOtherResponses <- read_delim(here("data/2024/codebook.txt"), #read in the codebook
                                 delim = "\t",
                                 col_select = c(SimplifiedColNames, Description)) %>%
   filter(SimplifiedColNames == "RepositoriesDMS") %>% #select just the row of information for the column of interest
