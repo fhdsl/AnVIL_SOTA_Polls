@@ -55,25 +55,29 @@ get_combine_dfs <- function(jsonResultsVec){
 
   for (i in 1:length(jsonResultsVec)){
     df <- fromJSON(jsonResultsVec[i])
-    df <- df$results$results$formatted[[2]]
+    df <- df$results$result$formatted[[2]]
+
     if (i == 1){
       message("Got here too")
       colnames(df) <- df[1,] #colnames taken from first row of data
       df <- df[-1, ] #remove the first row of data (original column names)
       print(dim(df))
     } else {
-      colnames(df) <- colnames(full_df) #colnames need to be specified?
+      #colnames(df) <- colnames(full_df) #colnames need to be specified?
       full_df <- rbind(full_df, df)
     }
   }
 
   if (length(jsonResultsVec) > 1){
     print(dim(full_df))
-    return(tibble::as_tibble_df(full_df))
-  } else { return(tibble::as_tibble(df))}
+    return(full_df)
+  } else { return(df)}
 }
 
 wrangle_data <- function(df, year){
+  df <- tibble::as_tibble(df)
+  df[df==""]<-NA #make no responses NAs
+
   print(paste0("Raw results dimension ", year, ": ", dim(df)))
 
   # --------- Any analysis/tidying you want to do ---------
