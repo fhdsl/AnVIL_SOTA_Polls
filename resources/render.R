@@ -58,6 +58,7 @@ get_combine_dfs <- function(jsonResultsVec){
     if (i == 1){
       colnames(df) <- df[1,] #colnames taken from first row of data
       df <- df[-1, ] #remove the first row of data (original column names)
+      message(dim(df))
     }
     df <- tibble::as_tibble(df)
     if (i > 1){
@@ -65,7 +66,8 @@ get_combine_dfs <- function(jsonResultsVec){
     }
   }
 
-  if (length(jsonResultsVec) >1){
+  if (length(jsonResultsVec) > 1){
+  message(dim(full_df))
     return(full_df)
   } else { return(df)}
 }
