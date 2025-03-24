@@ -69,7 +69,7 @@ get_combine_dfs <- function(jsonResultsVec){
     return(full_df)
   } else {
     print("Got here instead")
-    df <- fromJSON(jsonResultsVec[i])
+    df <- fromJSON(jsonResultsVec[1])
     df <- df$results$result$formatted[[2]]
 
     colnames(df) <- df[1,] #colnames taken from first row of data
