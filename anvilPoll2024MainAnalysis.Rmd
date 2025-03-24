@@ -1066,7 +1066,7 @@ dmsPlot <- resultsTidy %>%
   select(UserType, RepositoriesDMS) %>%
   left_join(nonOtherResponses, by = c("RepositoriesDMS" = "Description")) %>% #use this left_join to identify responses that weren't user provided
   replace_na(list(suffix="*")) %>% #user provided responses will have NA in the suffix column from the left_join, so we replace those with an asterisk
-  unite(RepositoriesMut, c("RepositoriesDMS", "suffix"), sep="") %>% #unite the responses with the suffix, appending the asterisk for user supplied answers
+  tidyr::unite(RepositoriesMut, c("RepositoriesDMS", "suffix"), sep="") %>% #unite the responses with the suffix, appending the asterisk for user supplied answers
   #group_by(UserType, RepositoriesMut) %>%
   #summarize(count = n()) %>%
   ggplot(aes(#x = count,
