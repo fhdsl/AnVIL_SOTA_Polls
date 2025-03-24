@@ -620,7 +620,7 @@ There were 4 "Other" free response responses
 </details>
 
 ```{r}
-onAnVILDF <- read_delim(here("data/controlledAccessData_codebook.txt"), delim = "\t", col_select = c(whichControlledAccess, AnVIL_Availability))
+onAnVILDF <- read_delim(here("data/2024/controlledAccessData_codebook.txt"), delim = "\t", col_select = c(whichControlledAccess, AnVIL_Availability))
 ```
 
 <details><summary>Description of variable definitions and steps for preparing the data continued</summary>
