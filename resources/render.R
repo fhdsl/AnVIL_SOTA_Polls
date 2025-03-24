@@ -60,7 +60,7 @@ get_combine_dfs <- function(jsonResultsVec){
       message("Got here too")
       colnames(df) <- df[1,] #colnames taken from first row of data
       df <- df[-1, ] #remove the first row of data (original column names)
-      message(dim(df))
+      print(dim(df))
     } else {
       colnames(df) <- colnames(full_df) #colnames need to be specified?
       full_df <- rbind(full_df, df)
@@ -68,7 +68,7 @@ get_combine_dfs <- function(jsonResultsVec){
   }
 
   if (length(jsonResultsVec) > 1){
-    message(dim(full_df))
+    print(dim(full_df))
     return(tibble::as_tibble_df(full_df))
   } else { return(tibble::as_tibble(df))}
 }
