@@ -48,6 +48,7 @@ jsonResults_2025 <- opt$data_in_2025
 #add more opt$data_in_{}_{} assignments here for each year (and batch) of results
 
 get_combine_dfs <- function(jsonResultsVec){
+  message("Got here")
   if (length(jsonResultsVec) > 1){
     full_df = data.frame()
   }
@@ -56,13 +57,13 @@ get_combine_dfs <- function(jsonResultsVec){
     df <- fromJSON(jsonResultsVec[i])
     df <- df$results$results$formatted[[2]]
     if (i == 1){
+      message("Got here too")
       colnames(df) <- df[1,] #colnames taken from first row of data
       df <- df[-1, ] #remove the first row of data (original column names)
       message(dim(df))
-    }
-    if (i > 1){
+    } else {
+      colnames(df) <- colnames(full_df) #colnames need to be specified?
       full_df <- rbind(full_df, df)
-    }
   }
 
   if (length(jsonResultsVec) > 1){
