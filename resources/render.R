@@ -60,16 +60,15 @@ get_combine_dfs <- function(jsonResultsVec){
       df <- df[-1, ] #remove the first row of data (original column names)
       message(dim(df))
     }
-    df <- tibble::as_tibble(df)
     if (i > 1){
       full_df <- rbind(full_df, df)
     }
   }
 
   if (length(jsonResultsVec) > 1){
-  message(dim(full_df))
-    return(full_df)
-  } else { return(df)}
+    message(dim(full_df))
+    return(tibble::as_tibble_df(full_df))
+  } else { return(tibble::as_tibble(df))}
 }
 
 wrangle_data <- function(df, year){
