@@ -159,7 +159,7 @@ jobs:
           commands: |
             [
               { "command": "getWorksheet", "args": { "worksheetTitle": "Test2025" }},
-              { "command": "getData", "args": { "range": "'Test2025'!A1:BW19" } }
+              { "command": "getData", "args": { "range": "'Test2025'!A1:BW19" }}
             ]
         env:
           GSHEET_CLIENT_EMAIL: ${{ secrets.GSHEET_CLIENT_EMAIL }}

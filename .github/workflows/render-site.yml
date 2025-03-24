@@ -86,7 +86,7 @@ jobs:
           commands: |
             [
               { "command": "getWorksheet", "args": { "worksheetTitle": "Test2024" }},
-              { "command": "getData", "args": { "range": "'Test2024'!A1:BI1,A22:BI42" }}
+              { "command": "getData", "args": { "range": "'Test2024'!A22:BI42" }}
             ]
           #commands: | # list of commands, specified as a valid JSON string
           #  [
@@ -106,7 +106,7 @@ jobs:
           commands: |
             [
               { "command": "getWorksheet", "args": { "worksheetTitle": "Test2024" }},
-              { "command": "getData", "args": { "range": "'Test2024'!A1:BI1,A43:BI53" }}
+              { "command": "getData", "args": { "range": "'Test2024'!A43:BI53" }}
             ]
           #commands: | # list of commands, specified as a valid JSON string
           #  [
