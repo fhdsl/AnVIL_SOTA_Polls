@@ -159,83 +159,83 @@ jobs:
         # add result below in Run render script action (two places)
 
         # Run the analysis and Render
-      - name: Run render script
-        id: site
-        env:
+      #- name: Run render script
+      #  id: site
+      #  env:
           # the output of the action above!
-          RESULTS2024: ${{ steps.get_sheet_2024.outputs.results }}
-          RESULTS2025: ${{ steps.get_sheet_2025.outputs.results }}
+      #    RESULTS2024: ${{ steps.get_sheet_2024.outputs.results }}
+      #    RESULTS2025: ${{ steps.get_sheet_2025.outputs.results }}
           # ADD a new RESULTS# here
-        run: | #add the "$RESULTS#" below
-          Rscript --vanilla "resources/render.R" --data_in_2024 "$RESULTS2024"
+      #  run: | #add the "$RESULTS#" below
+      #    Rscript --vanilla "resources/render.R" --data_in_2024 "$RESULTS2024"
 
       # This checks on the steps before it and makes sure that they completed.
       # If the renders didn't complete we don't want to commit the file changes
-      - name: Check on render steps
-        if: steps.site.outcome != 'success'
-        run: |
-          echo site status ${{steps.site.outcome}}
-          exit 1
+      #- name: Check on render steps
+      #  if: steps.site.outcome != 'success'
+      #  run: |
+      #    echo site status ${{steps.site.outcome}}
+      #    exit 1
 
-      - name: Website preview for download
-        run: zip website-preview.zip docs/* -r
+      #- name: Website preview for download
+      #  run: zip website-preview.zip docs/* -r
 
       # Commit the website files
-      - name: Commit rendered website files
-        id: commit
-        run: |
-          branch_name='preview-${{ github.event.pull_request.number }}'
-          git diff origin/main -- docs >/dev/null && changes=true || changes=false
-          echo "changes=$changes" >> $GITHUB_OUTPUT
-          git add . --force
-          git commit -m 'Render preview' || echo "No changes to commit"
-          git pull --rebase --set-upstream origin $branch_name --allow-unrelated-histories --strategy-option=ours
-          git push --force || echo "No changes to commit"
-        shell: bash
+      #- name: Commit rendered website files
+      #  id: commit
+      #  run: |
+      #    branch_name='preview-${{ github.event.pull_request.number }}'
+      #    git diff origin/main -- docs >/dev/null && changes=true || changes=false
+      #    echo "changes=$changes" >> $GITHUB_OUTPUT
+      #    git add . --force
+      #    git commit -m 'Render preview' || echo "No changes to commit"
+      #    git pull --rebase --set-upstream origin $branch_name --allow-unrelated-histories --strategy-option=ours
+      #    git push --force || echo "No changes to commit"
+      #  shell: bash
 
-      - name: Find Comment
-        uses: peter-evans/find-comment@v3
-        id: fc
-        with:
-          issue-number: ${{ github.event.pull_request.number }}
-          comment-author: 'github-actions[bot]'
-          body-includes: latest commit
+      #- name: Find Comment
+      #  uses: peter-evans/find-comment@v3
+      #  id: fc
+      #  with:
+      #    issue-number: ${{ github.event.pull_request.number }}
+      #    comment-author: 'github-actions[bot]'
+      #    body-includes: latest commit
 
-      - name: Build components of the comment
-        id: build-components
-        run: |
-          course_name=$(head -n 1 _website.yml | cut -d'"' -f 2| tr " " "-")
-          website_link=$(echo "https://htmlpreview.github.io/?https://raw.githubusercontent.com/$GITHUB_REPOSITORY/preview-${{ github.event.pull_request.number }}/docs/index.html")
-          docs_link=$(echo "https://github.com/$GITHUB_REPOSITORY/raw/preview-${{ github.event.pull_request.number }}/website-preview.zip")
-          echo "zip_link=$docs_link" >> $GITHUB_OUTPUT
-          echo "website_link=$website_link" >> $GITHUB_OUTPUT
-          echo "time=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
-          echo "commit_id=$GITHUB_SHA" >> $GITHUB_OUTPUT
-          echo ${{steps.commit.outputs.changes}}
+      #- name: Build components of the comment
+      #  id: build-components
+      #  run: |
+      #    course_name=$(head -n 1 _website.yml | cut -d'"' -f 2| tr " " "-")
+      #    website_link=$(echo "https://htmlpreview.github.io/?https://raw.githubusercontent.com/$GITHUB_REPOSITORY/preview-${{ github.event.pull_request.number }}/docs/index.html")
+      #    docs_link=$(echo "https://github.com/$GITHUB_REPOSITORY/raw/preview-${{ github.event.pull_request.number }}/website-preview.zip")
+      #    echo "zip_link=$docs_link" >> $GITHUB_OUTPUT
+      #    echo "website_link=$website_link" >> $GITHUB_OUTPUT
+      #    echo "time=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      #    echo "commit_id=$GITHUB_SHA" >> $GITHUB_OUTPUT
+      #    echo ${{steps.commit.outputs.changes}}
 
-      - name: Create or update comment
-        if: steps.commit.outputs.changes == 'true'
-        uses: peter-evans/create-or-update-comment@v3
-        with:
-          comment-id: ${{ steps.fc.outputs.comment-id }}
-          issue-number: ${{ github.event.pull_request.number }}
-          body: |
-            :eyes: Quick [preview of website here](${{ steps.build-components.outputs.website_link }}) \*
-            :microscope: Comprehensive [download of the website here](${{ steps.build-components.outputs.zip_link }})
+      #- name: Create or update comment
+      #  if: steps.commit.outputs.changes == 'true'
+      #  uses: peter-evans/create-or-update-comment@v3
+      #  with:
+      #    comment-id: ${{ steps.fc.outputs.comment-id }}
+      #    issue-number: ${{ github.event.pull_request.number }}
+      #    body: |
+      #      :eyes: Quick [preview of website here](${{ steps.build-components.outputs.website_link }}) \*
+      #      :microscope: Comprehensive [download of the website here](${{ steps.build-components.outputs.zip_link }})
 
-            \* note not all html features will be properly displayed in the "quick preview" but it will give you a rough idea.
+      #      \* note not all html features will be properly displayed in the "quick preview" but it will give you a rough idea.
 
-            _Updated at ${{ steps.build-components.outputs.time }} with changes from the latest commit ${{ steps.build-components.outputs.commit_id }}_
-          edit-mode: replace
+      #      _Updated at ${{ steps.build-components.outputs.time }} with changes from the latest commit ${{ steps.build-components.outputs.commit_id }}_
+      #    edit-mode: replace
 
-      - name: No comment if no changes
-        if: steps.commit.outputs.changes == 'false'
-        uses: peter-evans/create-or-update-comment@v3
-        with:
-          comment-id: ${{ steps.fc.outputs.comment-id }}
-          issue-number: ${{ github.event.pull_request.number }}
-          body: |
-            The latest commit did not produce rendering changes.
+      #- name: No comment if no changes
+      #  if: steps.commit.outputs.changes == 'false'
+      #  uses: peter-evans/create-or-update-comment@v3
+      #  with:
+      #    comment-id: ${{ steps.fc.outputs.comment-id }}
+      #    issue-number: ${{ github.event.pull_request.number }}
+      #    body: |
+      #      The latest commit did not produce rendering changes.
 
-            _Updated at ${{ steps.build-components.outputs.time }} with changes from ${{ steps.build-components.outputs.commit_id }}_
-          edit-mode: replace
+      #      _Updated at ${{ steps.build-components.outputs.time }} with changes from ${{ steps.build-components.outputs.commit_id }}_
+      #    edit-mode: replace
