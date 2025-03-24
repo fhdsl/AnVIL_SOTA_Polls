@@ -127,7 +127,7 @@ jobs:
       #- name: dump results 2024
       #  env:
       #    RESULTS2024: ${{ steps.get_sheet_2024.outputs.results }}
-      #  run: echo "$RESULTS2024" | jq
+      #  run: echo "$RESULTS2024"
 
       - name: get data two
         id: 'get_sheet_2025'
@@ -152,7 +152,7 @@ jobs:
       - name: dump results 2025
         env:
           RESULTS2025: ${{ steps.get_sheet_2025.outputs.results }}
-        run: echo "$RESULTS2025" | jq
+        run: echo "$RESULTS2025"
 
         # ADD new get data __ here following pattern above for each year
         # update the name, id, spreadsheetId, and range.
