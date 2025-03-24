@@ -64,6 +64,7 @@ get_combine_dfs <- function(jsonResultsVec){
     } else {
       colnames(df) <- colnames(full_df) #colnames need to be specified?
       full_df <- rbind(full_df, df)
+    }
   }
 
   if (length(jsonResultsVec) > 1){
