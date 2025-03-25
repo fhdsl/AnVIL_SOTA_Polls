@@ -154,7 +154,7 @@ jobs:
         run: | #add the --data_in_# "$RESULTS#" below
           Rscript --vanilla "resources/render.R" --data_in_2024_b1 "$RESULTS2024b1" \
                                                  --data_in_2024_b2 "$RESULTS2024b2"
-                                                 --data_in_2024_b3 "$RESULTS2024b3"
+                                                 --data_in_2024_b3 "$RESULTS2024b3" \
                                                  --data_in_2025 "$RESULTS2025"
 
       # This checks on the steps before it and makes sure that they completed.
