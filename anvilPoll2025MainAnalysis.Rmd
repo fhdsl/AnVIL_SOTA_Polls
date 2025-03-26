@@ -161,7 +161,7 @@ kowPlot <- ggplot(dfForPlotKOW,
   ylab("") +
   ggtitle("What kind of work do you do?") +
   xlab("Respondent") +
-  facet_wrap(~UserType)
+  facet_wrap(~UserType, scales = "free_x")
 
 kowPlot
 
@@ -183,7 +183,7 @@ First, we set the factor level for the further simplified institutional type col
 ```{r, fig.height = 5, fig.width = 8}
 instTypePlot <- resultsTidy %>%
   mutate(FurtherSimplifiedInstitutionalType = factor(FurtherSimplifiedInstitutionalType, levels = c("Industry & Other", "Education Focused", "Research Intensive"))) %>%
-  #group_by(UserType, FurtherSimplifiedInstitutionalType) %>% summarize(InstitutionalCount = n()) %>%
+  %>% summarize(InstitutionalCount = n()) %>%
   ggplot(aes(
     y = FurtherSimplifiedInstitutionalType,
     #x = InstitutionalCount,
@@ -877,11 +877,11 @@ totalRanksdf <-
   mutate(UsertypeFeature = rownames(.)) %>%
   separate(UsertypeFeature, c("Usertype", "Feature"), sep = "Rank", remove = TRUE) %>%
   mutate(Feature =
-           case_when(Feature == "EasyBillingSetup" ~ "Easy billing setup",
-                     Feature == "FlatRateBilling" ~ "Flat-rate billing rather than use-based",
-                     Feature == "FreeVersion" ~ "Free version with limited compute or storage",
+           case_when(Feature == "TransparentBilling" ~ "Transparent billing\nability to foresee project cost",
+                     Feature == "WorkgroupManagement" ~ "Easy workgroup and user management",
+                     Feature == "Tools" ~ "Specific tools are available/supported",
                      Feature == "SupportDocs" ~ "On demand support and documentation",
-                     Feature == "ToolsData" ~ "Specific tools or datasets are available/supported",
+                     Feature == "Data" ~ "Specific datasets are available/supported",
                      Feature == "CommunityAdoption" ~ "Greater adoption of the AnVIL by the scientific community"),
          Usertype = factor(case_when(Usertype == "Potential" ~ "Potential Users",
                                      Usertype == "Returning" ~ "Returning Users"), levels = c("Potential Users", "Returning Users"))
