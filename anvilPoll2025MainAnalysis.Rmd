@@ -181,7 +181,6 @@ First, we set the factor level for the further simplified institutional type col
 instTypePlot <- resultsTidy %>%
   mutate(FurtherSimplifiedInstitutionalType = factor(FurtherSimplifiedInstitutionalType,
                                                      levels = c("Industry & Other", "Education Focused", "Research Intensive"))) %>%
-  summarize(InstitutionalCount = n()) %>%
   ggplot(aes(
     y = FurtherSimplifiedInstitutionalType,
     fill = UserType
