@@ -184,11 +184,13 @@ instTypePlot <- resultsTidy %>%
   ggplot(aes(
     y = FurtherSimplifiedInstitutionalType,
     fill = UserType
-  )) + geom_bar() + #position = "stack", stat = "identity") +
+  )) +
+  geom_bar() +
   geom_text(
     aes(label = after_stat(..count..)), stat = "count",
     position = "stack", hjust = -1, size=2
-  ) + coord_cartesian(clip = "off") +
+  ) +
+  coord_cartesian(clip = "off") +
   ggtitle("Institutional Affiliation for All Survey Respondents") +
   annotation_custom(textGrob("- R1 University     \n- Med Campus      \n- Research Center\n- NIH                     ", gp = gpar(fontsize = 8)), xmin = -8.5, xmax = -8.5, ymin = 2.65, ymax = 2.65) +
   annotation_custom(textGrob("- Industry             \n- International Loc\n- Unknown           ", gp = gpar(fontsize = 8)), xmin = -8.5, xmax = -8.5, ymin = .7, ymax = .7) +
@@ -272,7 +274,7 @@ toPlotToolKnowledge <- bind_rows(
     select(starts_with("Score_AllTech")) %>%
     colSums() %>%
     as.data.frame() %>% `colnames<-`(c("totalScore")) %>%
-    mutate(nscores = sum(resultsTidy$UserType == "Potential User"),
+    mutate(nscores = sum(resultsTidy$UserType != "Returning User"),
            avgScore = totalScore / nscores,
            UserType = "Potential Users") %>%
     mutate(WhereTool = rownames(.)) %>%
@@ -861,7 +863,7 @@ totalRanksdf <-
       select(starts_with("PotentialRank")) %>%
       colSums(na.rm = TRUE) %>%
       as.data.frame() %>% `colnames<-`(c("totalRank")) %>%
-      mutate(nranks = sum(resultsTidy$UserType == "Potential User"),
+      mutate(nranks = sum(resultsTidy$UserType != "Returning User"),
              avgRank = totalRank / nranks),
     resultsTidy %>%
       select(starts_with("ReturningRank")) %>%
@@ -963,7 +965,7 @@ toPlotTrainingRanks <- bind_rows(
     select(starts_with("AnVILTrainingWorkshops")) %>%
     colSums() %>%
     as.data.frame() %>% `colnames<-`(c("totalRank")) %>%
-    mutate(nranks = sum(resultsTidy$UserType == "Potential User"),
+    mutate(nranks = sum(resultsTidy$UserType != "Returning User"),
            avgRank = totalRank / nranks,
            UserType = "Potential Users") %>%
     mutate(TrainingType = rownames(.)) %>%
