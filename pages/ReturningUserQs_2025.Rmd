@@ -57,5 +57,5 @@ There's a fairly bimodal distribution here with users either extremely likely or
 
 ## Potential Follow-up
 
-  - What do we see in other responses from those who are extremely likely to recommend the AnVIL to a colleague? e.g., Are they part of a consortium?
-  - What do we see in other responses from those who are only moderately or not at all likely to recommend the AnVIL?
+  - TBD
+  - TBD
