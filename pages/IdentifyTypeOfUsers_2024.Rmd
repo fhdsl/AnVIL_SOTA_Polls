@@ -1,0 +1,30 @@
+---
+title: "Identify returning vs potential users"
+subtitle: "2024"
+author: ""
+date: ""
+output: html_document
+---
+
+```{r, message = FALSE, echo = FALSE,results='hide', warning=FALSE}
+library(tidyverse)
+library(here)
+
+# Inherit `resultsTidy`
+knitr::knit_child(here("anvilPoll2024MainAnalysis.Rmd"))
+# Import functions to stylize plots
+source(here("resources/scripts/shared_functions.R"))
+```
+
+```{r, message=FALSE, echo=FALSE}
+typeOfUserPlot
+```
+
+## Takeaway
+
+Of the `r nrow(resultsTidy)` responses, `r nrow(resultsTidy %>% filter(UserType == "Returning User"))` are returning users and `r nrow(resultsTidy %>% filter(UserType == "Potential User"))` are potential users. The majority of returning users belong to the group who use the AnVIL for ongoing projects while the majority of potential users are evenly split between those who have never used the AnVIL (but have heard of it) and those who have used the AnVIL previously, but don't currently.
+
+## Potential Follow-up
+
+- Look to see if those potential users who previously used to use the AnVIL show similarity in overall trends with the rest of the potential users
+- Directly ask why they no longer use the AnVIL

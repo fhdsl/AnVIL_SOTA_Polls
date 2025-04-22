@@ -1,0 +1,104 @@
+---
+title: "Experience"
+subtitle: "2025"
+author: ""
+date: ""
+output: html_document
+---
+
+```{r, message = FALSE, echo = FALSE,results='hide', warning=FALSE}
+library(here)
+
+# Inherit plots
+knitr::knit_child(here("anvilPoll2025MainAnalysis.Rmd"))
+# Import functions to stylize plots
+source(here("resources/scripts/shared_functions.R"))
+```
+
+<br/>
+
+# Tool & Resource Knowledge/Comfort level
+
+```{r, message=FALSE, echo = FALSE}
+PlotToolKnowledge_avg_score
+```
+
+## Takeaway
+
+Except for Galaxy, potential users tend to report lower comfort levels for the various tools and technologies when compared to returning users. Where tools were present on and off AnVIL, returning users report similar comfort levels.
+
+Overall, there is less comfort with containers or workflows than using various programming languages and integrated development environments (IDEs).
+
+## Potential follow-up
+
+- Potentially prioritize developing resources for utilizing the tools or data resources which correspond to lower comfort levels
+
+<br/>
+
+# Types of data analyzed
+
+```{r, message=FALSE, echo=FALSE}
+everyone_type_data
+```
+
+<br/>
+
+# Genomics and Clinical Research Experience
+
+```{r, message=FALSE, echo = FALSE}
+genomicsExpPlot
+```
+
+## Takeaway
+
+21 respondents report that they are extremely experienced in analyzing human genomic data, while only 6 respondents report that they are not at all experienced in analyzing human genomic data. However, for human clinical data and non-human genomic data, more respondents report being not at all experienced in analyzing those data than report being extremely experienced.
+
+## Potential Follow-up
+
+  - What's the overlap like for those moderately or extremely experienced in these various categories?
+
+<br/>
+
+# General interest in controlled access datasets
+
+```{r message=FALSE, echo=FALSE}
+dataInterestPlot
+```
+
+## Takeaway
+
+Over half of respondents report they are extremely interested in working with controlled access datasets.
+
+<br/>
+
+# Controlled Access Datasets (specific interest)
+
+## All responses
+
+```{r message=FALSE, echo=FALSE}
+everyoneDataPlot
+```
+
+## Just responses from those moderately or extremely experienced with clinical data
+
+```{r message=FALSE, echo=FALSE}
+clinicalDataPlot
+```
+
+## Just responses from those moderately or extremely experienced with human genomic data
+
+```{r message=FALSE, echo=FALSE}
+humanGenomicDataPlot
+```
+
+## Just responses from those moderately or extremely experienced with non-human genomic data
+
+```{r message=FALSE, echo=FALSE}
+nonHumanGenomicDataPlot
+```
+
+## Takeaway
+
+Of the survey provided choices, respondents have accessed or are particularly interested in accessing [All of Us](https://www.researchallofus.org/), [UK Biobank](https://www.ukbiobank.ac.uk/enable-your-research/about-our-data), and [GTEx](https://anvilproject.org/data/consortia/GTEx) (though All of Us and UK Biobank are not currently AnVIL hosted). 2 respondents (moderately or extremely experienced with genomic data) specifically wrote in ["TCGA"](https://www.cancer.gov/ccg/research/genome-sequencing/tcga). The trend of All of Us, UK Biobank, and GTEx being chosen the most is consistent across all 3 research categories (moderately or extremely experienced with clinical, human genomic, or non-human genomic data).
+
+<br/>
