@@ -310,7 +310,7 @@ toPlotToolKnowledgeSeparateBR <- rows_append(toPlotToolKnowledge, data.frame(
           AnVILorNo = rep(roi$AnVILorNo,2),
           Tool = c("Bioconductor", "RStudio")
   )) %>%
-  rows_delete(., data.frame(roi))
+  filter(Tool != "Bioconductor & RStudio")
 ```
 
 
